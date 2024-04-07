@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Test</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <section class="container">
+        <section class="content-section">
+            <div class="content" id="content"></div>
+        </section>
+
+        <section class="input-section">
+            <input type="text" name="text-inpt" id="text-inpt" class="text-inpt">
+            <div class="options">
+                <button class="time-option" data-time="30">30s</button>
+                <button class="time-option selected-time" data-time="60">60s</button>
+                <button class="time-option" data-time="120">120s</button>
+
+            </div>
+        </section>
+
+        <section class="result-section">
+            <!-- <div class="result-div">
+                <span class="result"></span>
+                <span class="label"></span>
+            </div> -->
+            <div class="timeleft-div">
+                <span class="timeleft" data-timeleft=""></span>
+                <span class="label">Time Left</span>
+            </div>
+            <div class="accuracy-div" >
+                <span class="accuracy" data-accuracy="0 %"></span>
+                <span class="label">Accuracy</span>
+            </div>
+            <div class="score-div" >
+                <span class="score" data-score="0 WPM"></span>
+                <span class="label">Score</span>
+            </div>
+        </section>
+
+        <section class="control-section">
+            <button id="next"  class="btn-ctrl next"> </button>
+            <button id="retry" class="btn-ctrl retry"></button>
+        </section>
+
+    </section>
+    <script src="script.js" type="module"></script>
+    <script src="game.js" type="module"></script>
+
+    
+</body>
+</html>
