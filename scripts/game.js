@@ -1,5 +1,5 @@
-// import randomParagraph from 'https://cdn.skypack.dev/random-paragraph';
-// import { article ,paragraph } from 'https://unpkg.com/txtgen/dist/txtgen.esm.js'
+import randomParagraph from 'https://cdn.skypack.dev/random-paragraph';
+import { article ,paragraph } from 'https://unpkg.com/txtgen/dist/txtgen.esm.js'
 
 const accuracyDom=document.querySelector("[data-accuracy]");
 const timeleftDom=document.querySelector("[data-timeLeft]");
