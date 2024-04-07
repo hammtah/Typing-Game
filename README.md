@@ -7,6 +7,7 @@
 - show the speed 
 - retry
 - next
+- high score
 ## FUNCTIONALITIES
 - compare word per word --use 'escape' as a delimiter
 - if the word is depassed ,prevent from going back
@@ -15,3 +16,7 @@
 
 ## PERSONALISATION
 - add the change paragraph length option (medium ,long,short)
+## PREFERENCES 
+- language switch
+## NON-FUNCTIONAL
+- use rest-api to generate words instead of packages
