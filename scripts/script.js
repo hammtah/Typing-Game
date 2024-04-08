@@ -8,7 +8,7 @@ const newGame=new Game();
 // let maxWords=Math.floor(Math.random()*30 +20);
 // const choices=["article","random","par"]
 // let randomChoice=Math.floor(Math.random()*choices.length);
-let words=newGame.getWords()
+let words=newGame.getWords(1)
 // let words="Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem minus beatae asperiores quia excepturi necessitatibus fugiat suscipit qui in odio eveniet ullam aperiam, nihil ex obcaecati at eum harum non?".toLowerCase().split(" ");
 // let words=newGame.getWords("",40)
 newGame.init(words);
@@ -33,7 +33,7 @@ inpt.oninput= ()=>{
 }
 
 inpt.addEventListener("keyup",(e)=>{
-        // if(e.key==" " && inpt.value.trim().length>0) {
+        if(e.key==" " && inpt.value.trim().length>0) {
             e.preventDefault();
             //compare the words
             let res=newGame.compareWords(inpt.value.trim(),words[newGame.wordIndex]);
@@ -52,12 +52,9 @@ inpt.addEventListener("keyup",(e)=>{
             }
             //move to the next word and 
             newGame.wordIndex++;
-            console.log("wordIndex: ",newGame.wordIndex)
-            console.log("wordlengtj: ",words.length)
-
             // check if it reached the max length
             if(newGame.wordIndex>=words.length)  newGame.endGame(newGame.score);
-        // } 
+        } 
     
 })
 

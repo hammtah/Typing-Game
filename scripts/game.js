@@ -28,8 +28,8 @@ class Game{
         this.gameEnded=false;
         this.startTime=null;
         this.timeEnd=document.querySelector(".selected-time").dataset.time;
-        inpt.focus();
         inpt.value="";
+        inpt.focus();
         accuracyDom.dataset.accuracy='0 %'
         scoreDom.dataset.score=this.score+" WPM"
         document.querySelector("[data-timeLeft]").dataset.timeleft=this.timeEnd+" s"
@@ -65,11 +65,12 @@ class Game{
     showResult(res,wordsLength){
         //adding the style for the correct or wrong word and adding the current-word style(class ) to the current word
         document.getElementById(`word-${this.wordIndex}`).classList.add(`${res? "correct-word":"wrong-word"}`);
-        document.querySelector(".current-word").classList.remove("current-word");
+        if(document.querySelector(".current-word")) document.querySelector(".current-word").classList.remove("current-word");
         if (this.wordIndex+1<wordsLength) document.getElementById(`word-${this.wordIndex+1}`).classList.add("current-word");
         // scroll down  when the current-word is close the end of the content section
         const lastLine=content.offsetTop+content.clientHeight+content.scrollTop
-        const currentPosition=document.querySelector(".current-word").offsetTop;
+        let currentPosition=0;
+        if(document.querySelector(".current-word")) currentPosition=document.querySelector(".current-word").offsetTop;
         if(lastLine-currentPosition<60) {
             content.scrollBy(0,90)
         }
