@@ -5,10 +5,10 @@ import  { Game,accuracyDom,timeleftDom,scoreDom,inpt,selectedTime }  from './gam
 // creating the words array by spliting the paragraph giving by the randomParagraph() , and then making them to lowercase
 // creating the words
 const newGame=new Game();
-let maxWords=Math.floor(Math.random()*30 +20);
-const choices=["article","random","par"]
-let randomChoice=Math.floor(Math.random()*choices.length);
-let words=newGame.getWords(choices[randomChoice],maxWords)
+// let maxWords=Math.floor(Math.random()*30 +20);
+// const choices=["article","random","par"]
+// let randomChoice=Math.floor(Math.random()*choices.length);
+let words=newGame.getWords()
 // let words="Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem minus beatae asperiores quia excepturi necessitatibus fugiat suscipit qui in odio eveniet ullam aperiam, nihil ex obcaecati at eum harum non?".toLowerCase().split(" ");
 // let words=newGame.getWords("",40)
 newGame.init(words);
@@ -33,7 +33,7 @@ inpt.oninput= ()=>{
 }
 
 inpt.addEventListener("keyup",(e)=>{
-        if(e.key==" " && inpt.value.trim().length>0) {
+        // if(e.key==" " && inpt.value.trim().length>0) {
             e.preventDefault();
             //compare the words
             let res=newGame.compareWords(inpt.value.trim(),words[newGame.wordIndex]);
@@ -50,10 +50,14 @@ inpt.addEventListener("keyup",(e)=>{
             if(newGame.wordIndex>3) {
                 scoreDom.dataset.score=Math.floor( (newGame.score * 60000) / ((new Date())-(newGame.startTime)) ) +" WPM";
             }
-            //move to the next word and check if it reached the max length
+            //move to the next word and 
             newGame.wordIndex++;
+            console.log("wordIndex: ",newGame.wordIndex)
+            console.log("wordlengtj: ",words.length)
+
+            // check if it reached the max length
             if(newGame.wordIndex>=words.length)  newGame.endGame(newGame.score);
-        } 
+        // } 
     
 })
 

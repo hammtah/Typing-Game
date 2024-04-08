@@ -6,6 +6,8 @@ const timeleftDom=document.querySelector("[data-timeLeft]");
 const scoreDom=document.querySelector("[data-score]");
 const inpt=document.getElementById("text-inpt");
 const selectedTime=document.querySelector(".selected-time");
+const content=document.querySelector(".content");
+
 
 class Game{
     constructor(){
@@ -32,6 +34,7 @@ class Game{
         scoreDom.dataset.score=this.score+" WPM"
         document.querySelector("[data-timeLeft]").dataset.timeleft=this.timeEnd+" s"
         inpt.disabled=false;
+        content.scrollBy(0,-1)
         // rendering the words in span format
         const wordsSpans=words.map( (word,index)=> {
             return `<span class="word ${index===0? 'current-word':''}" id="word-${index}">${word}</span>`;
@@ -39,20 +42,20 @@ class Game{
         
         document.getElementById("content").innerHTML=wordsSpans;
     }
-    getWords(textType,maxWords){
+    getWords(textType="par",sentences){
         let wordsTemp="";
         switch (textType) {
             case "article":
-                wordsTemp=article(1);
+                wordsTemp=article(sentences);
                 break;
             case "random":
-                wordsTemp=randomParagraph({sentences:3});
+                wordsTemp=randomParagraph({sentences:sentences});
                 break;
             default:
-                wordsTemp=paragraph(3);
+                wordsTemp=paragraph(sentences);
                 break;
         }
-        return wordsTemp.split(" ").slice(0,maxWords).map((word)=>{
+        return wordsTemp.split(" ").map((word)=>{
             return word.toLowerCase();
         });
     }
@@ -64,6 +67,12 @@ class Game{
         document.getElementById(`word-${this.wordIndex}`).classList.add(`${res? "correct-word":"wrong-word"}`);
         document.querySelector(".current-word").classList.remove("current-word");
         if (this.wordIndex+1<wordsLength) document.getElementById(`word-${this.wordIndex+1}`).classList.add("current-word");
+        // scroll down  when the current-word is close the end of the content section
+        const lastLine=content.offsetTop+content.clientHeight+content.scrollTop
+        const currentPosition=document.querySelector(".current-word").offsetTop;
+        if(lastLine-currentPosition<60) {
+            content.scrollBy(0,90)
+        }
     }
     endGame(score){
         inpt.disabled=true;
