@@ -21,4 +21,7 @@
 ## NON-FUNCTIONAL
 - use rest-api to generate words instead of packages
 ## WORKING ON   
-- (infinite) typing text --> when atempting the last line , the text will scroll up so you can keep typing
+- [ x ] (infinite) typing text --> when atempting the last line , the text will scroll up so you can keep typing
+## To add
+- progress bar for the text content
+- stages 

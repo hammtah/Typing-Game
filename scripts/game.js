@@ -77,9 +77,18 @@ class Game{
     }
     endGame(score){
         inpt.disabled=true;
-        inpt.value="GAME OVER";
         this.gameEnded=true;
-    
+        let msg="";
+        let emoji="";
+        if(document.querySelector("[data-timeLeft]").dataset.timeleft.startsWith(0)){
+            msg="Time Over"
+            emoji=`<img src="imgs/hourglass-low.svg" alt="time-over">`
+        }
+        else{
+            msg="Congratulations"
+            emoji=`<img src="imgs/confetti.svg" alt="confetti">`
+        }
+        document.querySelector(".inpt-sec").innerHTML=`<span>${msg}</span>${emoji}`;
     }
 
 }

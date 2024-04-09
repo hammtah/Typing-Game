@@ -105,6 +105,16 @@ body{
 .selected-time{
     background: var(--thrd-clr);
 }
+.inpt-sec{
+    display: flex;
+    align-items: center;
+    gap:4px;
+    .icon{
+        width: 24px;
+        height: 24px;
+    }
+
+}
 /* result sections */
 .result-section{
     width: 100%;
