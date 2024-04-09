@@ -39,23 +39,16 @@ inpt.oninput= handleInput;
 const handleKeyUp=(e)=>{
     if(e.key==" " && inpt.value.trim().length>0) {
         e.preventDefault();
-        //compare the words
         let result=newGame.compareWords(inpt.value.trim(),words[newGame.wordIndex]);
         inpt.value="";
         newGame.handleView(result,words.length);
         //increment and show the score if the word is correct     
         result===true ?  newGame.score++ : newGame.errors++ ;
-        //the accuracy is the score /number of words intered
-        newGame.accuracy=Math.floor(newGame.score / (newGame.wordIndex+1) *100);
-        accuracyDom.dataset.accuracy=newGame.accuracy+" %";
+        newGame.updateAccuracy();
         //show the score(wpm) after 4 words entring (so that it will be a logical value)
-        if(newGame.wordIndex>3) {
-            scoreDom.dataset.score=Math.floor( (newGame.score * 60000) / ((new Date())-(newGame.startTime)) ) +" WPM";
-        }
-        //move to the next word  
-        newGame.wordIndex++;
-        // check if it reached the max length
-        if(newGame.wordIndex>=words.length)  newGame.endGame();
+        if(newGame.wordIndex>3) scoreDom.dataset.score=Math.floor( (newGame.score * 60000) / ((new Date())-(newGame.startTime)) ) +" WPM";
+        // move to the next word and check if it reached the max length
+        if(++newGame.wordIndex>=words.length)  newGame.endGame();
     } 
 
 }

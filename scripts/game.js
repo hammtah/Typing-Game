@@ -91,6 +91,12 @@ class Game{
         document.querySelector(".inpt-sec").innerHTML=`<span>${msg}</span>${emoji}`;
     }
 
+    updateAccuracy(){
+        //the accuracy is the score /number of words intered
+        this.accuracy=Math.floor(this.score / (this.wordIndex+1) *100);
+        accuracyDom.dataset.accuracy=this.accuracy+" %";
+}
+
 }
 
 
