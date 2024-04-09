@@ -13,69 +13,77 @@ let words=newGame.getWords(1)
 // let words=newGame.getWords("",40)
 newGame.init(words);
 
-setInterval(() => {
-    if(!newGame.gameEnded){
-        //show time left in seconds
-        if(newGame.startTime!==null){
-            let timePassed=Math.floor((new Date()-newGame.startTime)/1000);
-            if(newGame.timeEnd>=timePassed) timeleftDom.dataset.timeleft=newGame.timeEnd-timePassed+" s";
-            else newGame.endGame(newGame.score);
-        } 
+
+const handleTimer=()=>{
+    const {gameEnded,startTime,timeEnd}=newGame;
+    if(!gameEnded){
+        if(startTime!==null){
+            //show time left in seconds
+            const timePassed=Math.floor((new Date()-startTime)/1000);
+            if(timeEnd>=timePassed) timeleftDom.dataset.timeleft=timeEnd-timePassed+" s";
+            else newGame.endGame();
+        }
     }
+}
+setInterval(handleTimer, 1000);
 
-}, 1000);
 
-//starting the chrno when the user type something
-inpt.oninput= ()=>{
+// start the timer on input, check if the word being intered is correct (at the same time before pressing space) 
+const handleInput=()=>{
     if(newGame.startTime==null) newGame.startTime=new Date();
     if(words[newGame.wordIndex].startsWith(inpt.value.trim())) inpt.style.background="white";
     else inpt.style.background="var(--wrong-key-clr)";
 }
+inpt.oninput= handleInput;
 
-inpt.addEventListener("keyup",(e)=>{
-        if(e.key==" " && inpt.value.trim().length>0) {
-            e.preventDefault();
-            //compare the words
-            let res=newGame.compareWords(inpt.value.trim(),words[newGame.wordIndex]);
-            //clear input
-            inpt.value="";
-            //show result 
-            newGame.showResult(res,words.length);
-            //increment and show the score if the word is correct     
-            res===true ?  newGame.score++ : newGame.errors++ ;
-            //the accuracy is the score /number of words intered
-            newGame.accuracy=Math.floor(newGame.score / (newGame.wordIndex+1) *100);
-            accuracyDom.dataset.accuracy=newGame.accuracy+" %";
-            //show the score(wpm) after 4 words entring (so that it will be a logical value)
-            if(newGame.wordIndex>3) {
-                scoreDom.dataset.score=Math.floor( (newGame.score * 60000) / ((new Date())-(newGame.startTime)) ) +" WPM";
-            }
-            //move to the next word and 
-            newGame.wordIndex++;
-            // check if it reached the max length
-            if(newGame.wordIndex>=words.length)  newGame.endGame(newGame.score);
-        } 
-    
-})
+const handleKeyUp=(e)=>{
+    if(e.key==" " && inpt.value.trim().length>0) {
+        e.preventDefault();
+        //compare the words
+        let result=newGame.compareWords(inpt.value.trim(),words[newGame.wordIndex]);
+        inpt.value="";
+        newGame.handleView(result,words.length);
+        //increment and show the score if the word is correct     
+        result===true ?  newGame.score++ : newGame.errors++ ;
+        //the accuracy is the score /number of words intered
+        newGame.accuracy=Math.floor(newGame.score / (newGame.wordIndex+1) *100);
+        accuracyDom.dataset.accuracy=newGame.accuracy+" %";
+        //show the score(wpm) after 4 words entring (so that it will be a logical value)
+        if(newGame.wordIndex>3) {
+            scoreDom.dataset.score=Math.floor( (newGame.score * 60000) / ((new Date())-(newGame.startTime)) ) +" WPM";
+        }
+        //move to the next word  
+        newGame.wordIndex++;
+        // check if it reached the max length
+        if(newGame.wordIndex>=words.length)  newGame.endGame();
+    } 
+
+}
+inpt.addEventListener("keyup",handleKeyUp)
 
 
-document.querySelector("#retry").addEventListener("click",()=>{
-    // retry
+const retry=()=>{
     newGame.init(words);
+}
+document.querySelector("#retry").addEventListener("click",retry);
 
-})
-document.querySelector("#next").addEventListener("click",()=>{
-    words=newGame.getWords("",40);
+const next=()=>{
+    words=newGame.getWords();
     newGame.init(words);
-})
+}
+document.querySelector("#next").addEventListener("click",next)
 
-document.addEventListener("click",(e)=>{
+const handleTimeOption=(e)=>{
+    document.querySelectorAll(".selected-time").forEach((elm)=>{
+        elm.classList.remove("selected-time");
+    })
+    e.target.classList.add("selected-time");
+    newGame.init(words)
+}
+const handleClicks=(e)=>{
     if(e.target.dataset.time){
-        document.querySelectorAll(".selected-time").forEach((elm)=>{
-            elm.classList.remove("selected-time");
-        })
-        e.target.classList.add("selected-time");
-        newGame.init(words)
+        handleTimeOption(e);
     }
-})
+}
+document.addEventListener("click",handleClicks)
 

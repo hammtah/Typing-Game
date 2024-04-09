@@ -62,7 +62,7 @@ class Game{
     compareWords(word1,word2){
         return word1.toLowerCase()==word2.toLowerCase();
     }
-    showResult(res,wordsLength){
+    handleView(res,wordsLength){
         //adding the style for the correct or wrong word and adding the current-word style(class ) to the current word
         document.getElementById(`word-${this.wordIndex}`).classList.add(`${res? "correct-word":"wrong-word"}`);
         if(document.querySelector(".current-word")) document.querySelector(".current-word").classList.remove("current-word");
@@ -75,7 +75,7 @@ class Game{
             content.scrollBy(0,90)
         }
     }
-    endGame(score){
+    endGame(){
         inpt.disabled=true;
         this.gameEnded=true;
         let msg="";
