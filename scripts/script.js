@@ -5,12 +5,11 @@ import  { Game,accuracyDom,timeleftDom,scoreDom,inpt,selectedTime }  from './gam
 // creating the words array by spliting the paragraph giving by the randomParagraph() , and then making them to lowercase
 // creating the words
 const newGame=new Game();
-// let maxWords=Math.floor(Math.random()*30 +20);
-// const choices=["article","random","par"]
-// let randomChoice=Math.floor(Math.random()*choices.length);
-// let words=newGame.getWords(choices[randomChoice],maxWords)
-let words="Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem minus beatae asperiores quia excepturi necessitatibus fugiat suscipit qui in odio eveniet ullam aperiam, nihil ex obcaecati at eum harum non?".toLowerCase().split(" ");
-console.log(words)
+let maxWords=Math.floor(Math.random()*30 +20);
+const choices=["article","random","par"]
+let randomChoice=Math.floor(Math.random()*choices.length);
+let words=newGame.getWords(choices[randomChoice],maxWords)
+// let words="Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem minus beatae asperiores quia excepturi necessitatibus fugiat suscipit qui in odio eveniet ullam aperiam, nihil ex obcaecati at eum harum non?".toLowerCase().split(" ");
 // let words=newGame.getWords("",40)
 newGame.init(words);
 
