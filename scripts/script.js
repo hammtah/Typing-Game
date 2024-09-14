@@ -1,16 +1,12 @@
-import  { Game,accuracyDom,timeleftDom,scoreDom,inpt,selectedTime }  from './game.js';
+import Game from './game.js';
 
+const timeleftDom=document.querySelector("[data-timeLeft]");
+const scoreDom=document.querySelector("[data-score]");
+const inpt=document.getElementById("text-inpt");
 
-// let {wordIndex,score,errors,gameEnded,startTime,timeEnd}=newGame;
-// creating the words array by spliting the paragraph giving by the randomParagraph() , and then making them to lowercase
-// creating the words
 const newGame=new Game();
-// let maxWords=Math.floor(Math.random()*30 +20);
-// const choices=["article","random","par"]
-// let randomChoice=Math.floor(Math.random()*choices.length);
-let words=newGame.getWords(1)
-// let words="Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem minus beatae asperiores quia excepturi necessitatibus fugiat suscipit qui in odio eveniet ullam aperiam, nihil ex obcaecati at eum harum non?".toLowerCase().split(" ");
-// let words=newGame.getWords("",40)
+
+let words = await newGame.getWords("wiki");
 newGame.init(words);
 
 
@@ -20,8 +16,16 @@ const handleTimer=()=>{
         if(startTime!==null){
             //show time left in seconds
             const timePassed=Math.floor((new Date()-startTime)/1000);
-            if(timeEnd>=timePassed) timeleftDom.dataset.timeleft=timeEnd-timePassed+" s";
+            if(timeEnd>=timePassed) {
+                timeleftDom.dataset.timeleft=timeEnd-timePassed+" s";
+                
+                //timebar  progress
+                let progressBarWidthPassed = Math.floor( timePassed * 100 / timeEnd );//the width representing the time passed 
+                let barDomWidth = 100 - progressBarWidthPassed;//the new width of the progress bar ( 100% - progressBarWidthPassed)
+                document.querySelector(".time-bar").style.width = `${barDomWidth}%`;
+            }
             else newGame.endGame();
+
         }
     }
 }
@@ -60,8 +64,9 @@ const retry=()=>{
 }
 document.querySelector("#retry").addEventListener("click",retry);
 
-const next=()=>{
-    words=newGame.getWords();
+const next= async ()=>{
+    // words=newGame.getWords();
+    words = await newGame.getWords("wiki");
     newGame.init(words);
 }
 document.querySelector("#next").addEventListener("click",next)
@@ -80,3 +85,5 @@ const handleClicks=(e)=>{
 }
 document.addEventListener("click",handleClicks)
 
+// game pause 
+//     inputField.addEventListener('blur', function() {

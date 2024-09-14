@@ -1,15 +1,20 @@
 import randomParagraph from 'https://cdn.skypack.dev/random-paragraph';
 import { article ,paragraph } from 'https://unpkg.com/txtgen/dist/txtgen.esm.js'
+//faker (under test)
+// import { faker } from 'https://esm.sh/@faker-js/faker';
+// const randomText = faker.lorem.paragraphs();
+// console.log(randomText);
+// wikipedia API
+
+
 
 const accuracyDom=document.querySelector("[data-accuracy]");
-const timeleftDom=document.querySelector("[data-timeLeft]");
 const scoreDom=document.querySelector("[data-score]");
 const inpt=document.getElementById("text-inpt");
 const selectedTime=document.querySelector(".selected-time");
 const content=document.querySelector(".content");
 
-
-class Game{
+export default class Game{
     constructor(){
         this.wordIndex=0;
         this.score=0;
@@ -28,13 +33,22 @@ class Game{
         this.gameEnded=false;
         this.startTime=null;
         this.timeEnd=document.querySelector(".selected-time").dataset.time;
+
+        // when refreshing or moving to the next text, the congratulation message must be removed and the input must be shown
+        if( document.querySelector("#congrats") != null )  document.querySelector("#congrats").remove();
+        document.getElementById("text-inpt").style.display = "block";
+        //
         inpt.value="";
-        inpt.focus();
+        document.getElementById("text-inpt").focus();
+        inpt.disabled=false;
+        inpt.style.background="white";
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("text-inpt").focus();
+        })
         accuracyDom.dataset.accuracy='0 %'
         scoreDom.dataset.score=this.score+" WPM"
         document.querySelector("[data-timeLeft]").dataset.timeleft=this.timeEnd+" s"
-        inpt.disabled=false;
-        content.scrollBy(0,-1)
+        content.scrollTop = 0;
         // rendering the words in span format
         const wordsSpans=words.map( (word,index)=> {
             return `<span class="word ${index===0? 'current-word':''}" id="word-${index}">${word}</span>`;
@@ -42,7 +56,7 @@ class Game{
         
         document.getElementById("content").innerHTML=wordsSpans;
     }
-    getWords(textType="par",sentences){
+    async getWords(textType, sentences = 1){
         let wordsTemp="";
         switch (textType) {
             case "article":
@@ -51,16 +65,26 @@ class Game{
             case "random":
                 wordsTemp=randomParagraph({sentences:sentences});
                 break;
+            case "wiki":
+                wordsTemp = await this.getWikiSummary();
+                break;
             default:
                 wordsTemp=paragraph(sentences);
                 break;
         }
-        return wordsTemp.split(" ").map((word)=>{
-            return word.toLowerCase();
-        });
+        // return wordsTemp.split(" ").map((word)=>{
+        //     return word.toLowerCase();
+        // });
+        return wordsTemp.split(" ");
+    }
+    async getWikiSummary() {
+        const response = await axios.get('https://en.wikipedia.org/api/rest_v1/page/random/summary');
+        return response.data.extract;
     }
     compareWords(word1,word2){
-        return word1.toLowerCase()==word2.toLowerCase();
+        // you can adjust it depending on difficulty (easy = compare words after transforming them to lowercase)
+        return word1 === word2;
+
     }
     handleView(res,wordsLength){
         //adding the style for the correct or wrong word and adding the current-word style(class ) to the current word
@@ -72,7 +96,10 @@ class Game{
         let currentPosition=0;
         if(document.querySelector(".current-word")) currentPosition=document.querySelector(".current-word").offsetTop;
         if(lastLine-currentPosition<60) {
-            content.scrollBy(0,90)
+            content.scrollBy({
+                top: 90,
+                behavior: "smooth",
+            });
         }
     }
     endGame(){
@@ -82,13 +109,19 @@ class Game{
         let emoji="";
         if(document.querySelector("[data-timeLeft]").dataset.timeleft.startsWith(0)){
             msg="Time Over"
-            emoji=`<img src="imgs/hourglass-low.svg" alt="time-over">`
+            emoji="⌛️"
         }
         else{
             msg="Congratulations"
-            emoji=`<img src="imgs/confetti.svg" alt="confetti">`
+            emoji="🎉"
         }
-        document.querySelector(".inpt-sec").innerHTML=`<span>${msg}</span>${emoji}`;
+        //hide the input field
+        inpt.style.display = "none";
+        //show the congratulation msg
+        const congratsElement = document.createElement("span");
+        congratsElement.id = "congrats";
+        congratsElement.textContent = msg + emoji;
+        document.querySelector(".inpt-sec").append(congratsElement);
     }
 
     updateAccuracy(){
@@ -101,4 +134,3 @@ class Game{
 
 
 
-export {Game,accuracyDom,timeleftDom,scoreDom,inpt,selectedTime};

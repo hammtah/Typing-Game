@@ -14,7 +14,8 @@
     --thrd-clr-hvr:#dac617;
     --scnd-clr:linear-gradient(90deg, rgba(255, 242, 195, 0.75) 0%, #FFF48F 100%);
     --shadow:0px 100px 80px 0px rgba(0, 0, 0, 0.07), 0px 41.778px 33.422px 0px rgba(0, 0, 0, 0.05), 0px 22.336px 17.869px 0px rgba(0, 0, 0, 0.04), 0px 12.522px 10.017px 0px rgba(0, 0, 0, 0.04), 0px 6.65px 5.32px 0px rgba(0, 0, 0, 0.03), 0px 2.767px 2.214px 0px rgba(0, 0, 0, 0.02);
-
+    /* --clr-1: #2E073F;
+    -clr-2:  */
     /* #006877 */
     /*  background-image: linear-gradient(to right, #ffe481, #b8dc85, #75ce9a, #36baae, #18a3b7); */
 }
@@ -178,4 +179,18 @@ body{
 .retry::after{
     content: url("imgs/refresh.svg");
     display: flex;
+}
+
+/* time bar */
+.time-bar-container{
+    width: 100%;
+    height: 5px;
+    background-color: rgb(244, 255, 255);
+}
+.time-bar{
+    width: 100%;
+    height: 5px;
+    border-radius: 14px;
+    background-color: #dac617;
+    transition: width 1s linear; /* Smooth transition over 1 second */
 }

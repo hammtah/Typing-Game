@@ -19,9 +19,15 @@
 ## PREFERENCES 
 - language switch
 ## NON-FUNCTIONAL
-- use rest-api to generate words instead of packages
+- [ x ] use rest-api to generate words instead of packages
 ## WORKING ON   
 - [ x ] (infinite) typing text --> when atempting the last line , the text will scroll up so you can keep typing
 ## To add
-- progress bar for the text content
+- [ x ] progress bar for the text content
 - stages 
+- pause game 
+  + add game.start()
+  + add game.pause()
+- loading animation before game start
+- UI
+- if wikipedia text is short then handle this 
