@@ -19,7 +19,7 @@
     --clr-1: #2E073F;
     --clr-2: #7A1CAC;
     --clr-3: #AD49E1;
-    --clr-4: #EBD3F8;
+    --clr-4: #C663FB;
     /* #006877 */
     /*  background-image: linear-gradient(to right, #ffe481, #b8dc85, #75ce9a, #36baae, #18a3b7); */
 }
@@ -79,6 +79,7 @@ body{
     text-align: center;
     max-height: 175px;
     overflow-y: hidden;
+    overflow-x: hidden;
     padding:10px;
     color: white;
 }
@@ -283,3 +284,45 @@ body{
   }
   
 
+/* loader css */
+/* From Uiverse.io by barisdogansutcu */ 
+svg {
+    width: 3.25em;
+    transform-origin: center;
+    animation: rotate4 2s linear infinite;
+   }
+   
+   circle {
+    fill: none;
+    stroke: white;
+    stroke-width: 2;
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+    animation: dash4 1.5s ease-in-out infinite;
+   }
+   
+   @keyframes rotate4 {
+    100% {
+     transform: rotate(360deg);
+    }
+   }
+   
+   @keyframes dash4 {
+    0% {
+     stroke-dasharray: 1, 200;
+     stroke-dashoffset: 0;
+    }
+   
+    50% {
+     stroke-dasharray: 90, 200;
+     stroke-dashoffset: -35px;
+    }
+   
+    100% {
+     stroke-dashoffset: -125px;
+    }
+   }
+   
+  
+  

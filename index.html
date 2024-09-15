@@ -16,7 +16,13 @@
 <body>
     <section class="container">
         <section class="content-section">
-            <div class="content" id="content"></div>
+            <div class="content" id="content">
+                <!-- loader, runs before content is generated -->
+                <svg viewBox="25 25 50 50">
+                    <circle r="20" cy="50" cx="50"></circle>
+                  </svg>
+
+            </div>
         </section>
 
         <section class="time-bar-container">
@@ -26,7 +32,7 @@
         <section class="input-section">
             <section class="inpt-sec ">
                 <span class="tooltip slide-top ">Start Typing</span>
-                <input type="text" name="text-inpt" id="text-inpt" class="text-inpt">
+                <input type="text" name="text-inpt" id="text-inpt" class="text-inpt" autofocus="true">
             </section>
 
             <div class="options">

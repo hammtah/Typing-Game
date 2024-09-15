@@ -70,6 +70,12 @@ document.querySelector("#retry").addEventListener("click",retry);
 
 const next= async ()=>{
     // words=newGame.getWords();
+    // show the loading animation when the game start
+    document.querySelector(".content").innerHTML = `
+        <svg viewBox="25 25 50 50">
+            <circle r="20" cy="50" cx="50"></circle>
+        </svg>`;
+    // get The words
     words = await newGame.getWords("wiki");
     newGame.init(words);
 }
