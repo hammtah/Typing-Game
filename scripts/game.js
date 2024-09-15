@@ -41,7 +41,7 @@ export default class Game{
         inpt.value="";
         document.getElementById("text-inpt").focus();
         inpt.disabled=false;
-        inpt.style.background="white";
+        inpt.style.background="var(--clr-1)";
         document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("text-inpt").focus();
         })

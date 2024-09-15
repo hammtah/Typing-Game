@@ -35,8 +35,8 @@ setInterval(handleTimer, 1000);
 // start the timer on input, check if the word being intered is correct (at the same time before pressing space) 
 const handleInput=()=>{
     if(newGame.startTime==null) newGame.startTime=new Date();
-    if(words[newGame.wordIndex].startsWith(inpt.value.trim())) inpt.style.background="white";
-    else inpt.style.background="var(--wrong-key-clr)";
+    if(words[newGame.wordIndex].startsWith(inpt.value.trim())) inpt.style.borderBottomColor="white";
+    else inpt.style.borderBottomColor="var(--wrong-key-clr)";
 }
 inpt.oninput= handleInput;
 
