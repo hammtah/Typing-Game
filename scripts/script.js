@@ -8,6 +8,10 @@ const newGame=new Game();
 
 let words = await newGame.getWords("wiki");
 newGame.init(words);
+// focus the input when the document is ready
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("text-inpt").focus();
+})
 
 
 const handleTimer=()=>{
@@ -86,4 +90,13 @@ const handleClicks=(e)=>{
 document.addEventListener("click",handleClicks)
 
 // game pause 
-//     inputField.addEventListener('blur', function() {
+
+    // hide the tooltip when start typing
+    document.getElementById("text-inpt").addEventListener("input",()=>{
+        document.querySelector(".tooltip").classList.add("hidden");
+    })
+    //show the tooltip when the input is not focused
+    document.getElementById("text-inpt").addEventListener("blur",()=>{
+        if( !newGame.gameEnded ) document.querySelector(".tooltip").classList.remove("hidden");
+        // here i should add a function to pause the game when the input is blur
+    })

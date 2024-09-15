@@ -55,6 +55,13 @@ export default class Game{
         }).join(' ');
         
         document.getElementById("content").innerHTML=wordsSpans;
+        // when the game is started show the tooltip
+        document.querySelector(".tooltip").classList.remove("hidden");
+        // reset the time bar to full width when the game start
+        document.querySelector(".time-bar").style.width = "100%";
+        //reset the input border-bottom to the default color
+        document.querySelector(".text-inpt").style.borderBottomColor = "white";
+
     }
     async getWords(textType, sentences = 1){
         let wordsTemp="";
@@ -122,6 +129,9 @@ export default class Game{
         congratsElement.id = "congrats";
         congratsElement.textContent = msg + emoji;
         document.querySelector(".inpt-sec").append(congratsElement);
+
+        // when the game is finished then hide the tooltip
+        document.querySelector(".tooltip").classList.add("hidden");
     }
 
     updateAccuracy(){
