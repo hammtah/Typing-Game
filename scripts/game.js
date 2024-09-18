@@ -21,9 +21,9 @@ export default class Game{
         this.errors=0;
         this.accuracy=0;
         this.gameEnded=false;
-        this.startTime=null;
         this.timeEnd=selectedTime.dataset.time;//timeEnd is the selected minitor (30s or 60s or 120s), and his value dosen't increment or decrement
         this.timer = 0;//timer will be incremented on every second so he is representing the time left
+        this.isGameStarted = false;//boolean to know if the game has started or not, it will be true when the first word is entered (or on the first input)
     }
     init(words){
         // break it
@@ -32,7 +32,7 @@ export default class Game{
         this.errors=0;
         this.accuracy=0;
         this.gameEnded=false;
-        this.startTime=null;
+        this.isGameStarted = false;
         this.isPaused = false;
         this.timeEnd=document.querySelector(".selected-time").dataset.time;
         this.timer = document.querySelector(".selected-time").dataset.time;//initially the timer will be equal to timeEnd, because we didn't start the game yet
