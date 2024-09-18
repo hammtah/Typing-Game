@@ -31,3 +31,7 @@
 - loading animation before game start
 - UI
 - if wikipedia text is short then handle this 
+- training
+- login
+- arcade
+- tournament
