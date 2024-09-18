@@ -73,8 +73,7 @@ const handleKeyUp=(e)=>{
         newGame.updateAccuracy();
         const timePassedInSeconds = newGame.timeEnd - newGame.timer;
         // to calculate the wpm we should : score * 60seconds / timePassedInSeconds
-        //show the score(wpm) after 4 words entring (so that it will be a logical value)
-        if(newGame.wordIndex>3) scoreDom.dataset.score=Math.floor( (newGame.score * 60) / timePassedInSeconds ) +" WPM";
+        scoreDom.dataset.score=Math.floor( (newGame.score * 60) / timePassedInSeconds ) +" WPM";
         // move to the next word and check if it reached the max length
         if(++newGame.wordIndex>=words.length)  newGame.endGame();
     } 
