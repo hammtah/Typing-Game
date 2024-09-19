@@ -325,4 +325,10 @@ svg {
    }
    
   
-  
+  /* styles for the input when the word entered is correct or wrong */
+  .wrong-word-input-styling{
+    border-bottom-color: var(--wrong-key-clr) !important;
+  }
+  .correct-word-input-styling{
+    border-bottom-color: white !important;
+  }

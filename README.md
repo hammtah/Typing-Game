@@ -35,3 +35,5 @@
 - login
 - arcade
 - tournament
+
+- Refactor game.js
