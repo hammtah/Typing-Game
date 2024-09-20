@@ -20,8 +20,11 @@
     --clr-2: #7A1CAC;
     --clr-3: #AD49E1;
     --clr-4: #C663FB;
+    --font-clr: white;
+    --time-bar-container-background: rgb(244, 255, 255);
     /* #006877 */
     /*  background-image: linear-gradient(to right, #ffe481, #b8dc85, #75ce9a, #36baae, #18a3b7); */
+    /* when making new color palett, make sure to order colors like this: dark-color: number1, medium-color: number2, light-color: number3 */
 }
 body{
     font-family: "Roboto Mono", monospace;
@@ -81,7 +84,7 @@ body{
     overflow-y: hidden;
     overflow-x: hidden;
     padding:10px;
-    color: white;
+    color: var(--font-clr);
 }
 .input-section{
     display: flex;
@@ -98,7 +101,7 @@ body{
     border: none;
     border-bottom: 2px solid white;
     background-color: var(--clr-1);
-    color: white;
+    color: var(--font-clr);
 }
 .text-inpt:focus{
     outline: none;
@@ -121,12 +124,12 @@ body{
     background: var(--clr-3);
     /* background: var(--thrd-clr); */
     cursor: pointer;
-    color: white;
+    color: var(--font-clr);
 }
 .selected-time{   
      /* background: var(--thrd-clr); */
     background: var(--clr-3);
-    color: white;
+    color: var(--font-clr);
 }
 .inpt-sec{
     position: relative;
@@ -157,7 +160,7 @@ body{
     font-weight: 400;
     font-size: 20px;
     box-shadow: var(--shadow);
-    color: white;
+    color: var(--font-clr);
 
 }
 .result-div,.timeleft-div,.accuracy-div,.score-div{
@@ -169,7 +172,7 @@ body{
 .label{
     font-size: 1rem;
     font-weight: 400;
-    color: white;
+    color: var(--font-clr);
 }
 
 /* controls */
@@ -211,7 +214,7 @@ body{
 .time-bar-container{
     width: 100%;
     height: 5px;
-    background-color: rgb(244, 255, 255);
+    background-color: var(--time-bar-container-background);
 }
 .time-bar{
     width: 100%;
@@ -225,7 +228,7 @@ body{
 }
 
 #congrats{
-    color: white;
+    color: var(--font-clr);
 }
 
 /* tooltip */

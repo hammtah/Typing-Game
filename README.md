@@ -37,3 +37,4 @@
 - tournament
 
 - Refactor game.js
+- update the wpm calculation mechanism (must be updated every second, so he don't be fix)
