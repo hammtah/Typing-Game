@@ -62,7 +62,7 @@ export default class Game{
         // reset the time bar to full width when the game start
         document.querySelector(".time-bar").style.width = "100%";
         //reset the input border-bottom to the default color
-        document.querySelector(".text-inpt").style.borderBottomColor = "white";        
+        document.querySelector(".text-inpt").classList.remove("wrong-word-input-styling");        
 
         // document.getElementById("text-inpt").focus();
 

@@ -8,8 +8,8 @@
     --wrong-clr:rgb(118, 23, 42);
     --correct-back :rgb(153, 231, 74);
     /* --wrong-back :rgb(230, 77, 107); */
-    --wrong-back :#FA1E7D;
-    --wrong-key-clr:#FA1E7D;
+    --wrong-back :#FA1E7D;/*the background color of wrong words also for the border-bottom-color of the input field when the input word is wrong*/
+    /* --wrong-key-clr:#FA1E7D; */
     /* --wrong-key-clr:rgb(252, 181, 196); */
     /* --scnd-clr:#F5C41A; */
     --thrd-clr:#F5E01B;
@@ -22,9 +22,25 @@
     --clr-4: #C663FB;
     --font-clr: white;
     --time-bar-container-background: rgb(244, 255, 255);
+    --correct-word-input-color: white;
+    --tooltip-background-color: rgb(255, 255, 255);
+    --tooltip-font-color: rgb(34, 34, 34);
+    --btn-control-hover-background: var(--clr-4);
+    --input-border-bottom-color: white;
     /* #006877 */
     /*  background-image: linear-gradient(to right, #ffe481, #b8dc85, #75ce9a, #36baae, #18a3b7); */
     /* when making new color palett, make sure to order colors like this: dark-color: number1, medium-color: number2, light-color: number3 */
+    
+    /* the colors variables for the first theme (they are used in the palette buttons) */
+    --theme-1-clr-1:#2E073F;
+    --theme-1-clr-2:#7A1CAC;
+    --theme-1-clr-3:#AD49E1;
+    /* the colors variables for the second theme (they are used in the palette buttons) */
+    --theme-2-clr-1:#f8f7ff;
+    --theme-2-clr-2:#805D46;
+    --theme-2-clr-3:#ffd8be;
+    /* the border of the palette button, it will be changed depending on the theme */
+    --palette-border-clr: white;/*she is set to white because the default theme (theme1) is dark theme, but when changing theme it will be changed*/
 }
 body{
     font-family: "Roboto Mono", monospace;
@@ -32,7 +48,24 @@ body{
     font-size: 18px;
     /* background: linear-gradient(90deg, rgba(255, 233, 157, 0.25) 0%, rgba(255, 205, 181, 0.38) 47%, rgba(250, 201, 255, 0.33) 100%); */
     background-color: var(--clr-1);
+    transition: all ease 300ms;
 }
+.theme-2{
+    --clr-1: #f8f7ff;
+    --clr-2: #805D46;
+    --clr-3: #ffd8be;
+    --clr-4: #f9c6a4; /*used for hover*/
+    --font-clr: black;
+    --time-bar-container-background: #805D46;
+    --correct-word-input-color: #ffeedd;
+    --tooltip-background-color:#805D46;
+    --tooltip-font-color:  rgb(255, 255, 255);
+    --btn-control-hover-background: var(--clr-4);
+    --input-border-bottom-color: #805D46;
+    --wrong-back: #FF6F6E;
+    --palette-border-clr: black;
+}
+
 .hidden{
     display: none;
 }
@@ -99,9 +132,12 @@ body{
     /* border:1.5px solid var(--scnd-clr); */
     text-align: center;
     border: none;
-    border-bottom: 2px solid white;
+    border-bottom: 5px solid var(--input-border-bottom-color);
     background-color: var(--clr-1);
     color: var(--font-clr);
+    border-bottom-color: var(--input-border-bottom-color);
+    transition: all ease 300ms;
+
 }
 .text-inpt:focus{
     outline: none;
@@ -118,6 +154,7 @@ body{
     font-weight: 400;
     font-size: 12px;
     box-shadow: var(--shadow);
+    transition: all ease 150ms;
 
 }
 .time-option:hover{
@@ -153,7 +190,7 @@ body{
 .result,.timeleft,.accuracy,.score{
     padding:16px 24px;
     /* background: var(--scnd-clr); */
-    /* background-color: var(--clr-3); */
+    background-color: var(--clr-3);
     border-radius: 14px;
     /* border:1px solid var(--scnd-clr); */
     border:1px solid var(--clr-3);
@@ -195,11 +232,11 @@ body{
     align-items: center;
     gap:8px;
     box-shadow: var(--shadow);
-
+    transition: all ease 150ms;
 }
 .btn-ctrl:hover{
     cursor: pointer;
-    background: var(--clr-4);
+    background: var(--btn-control-hover-background);
 }
 .next::after{
     content: url("imgs/arrow-right.svg");
@@ -241,10 +278,11 @@ body{
     /* opacity: 0; */
     pointer-events: none;
     transition: all 0.3s;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--tooltip-background-color);
     border-radius: 12px;
-    color: rgb(34, 34, 34);
+    color: var(--tooltip-font-color);
     width: max-content;
+    transition: all ease 300ms;
 }
 .tooltip::before {
     position: absolute;
@@ -254,7 +292,9 @@ body{
     bottom: -0.2em;
     left: 50%;
     transform: translate(-50%) rotate(45deg);
-    background-color: rgb(255, 255, 255);
+    background-color: var(--tooltip-background-color);
+    transition: all ease 300ms;
+
 }
 /* tooltip animation */
 .slide-top {
@@ -330,8 +370,34 @@ svg {
   
   /* styles for the input when the word entered is correct or wrong */
   .wrong-word-input-styling{
-    border-bottom-color: var(--wrong-key-clr) !important;
+    border-bottom-color: var(--wrong-back) !important;
   }
   .correct-word-input-styling{
-    border-bottom-color: white !important;
+    border-bottom-color: var(--input-border-bottom-color) !important;
   }
+
+  /* palettes styling*/
+  .palettes-section{
+    position: absolute;
+    top: 5em;
+    right: 3em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    align-items: center;
+
+  }
+  .palette-button {
+    width: 64px;
+    height: 57px;
+    border: 3px solid var(--palette-border-clr);
+    border-radius: 21%;
+    scale: 0.8;
+    cursor: pointer;
+}
+#theme-1-palette{
+    background: linear-gradient(to right, var(--theme-1-clr-1) 33%, var(--theme-1-clr-2) 33%, var(--theme-1-clr-2) 66%, var(--theme-1-clr-3) 66%);
+}
+#theme-2-palette{
+    background: linear-gradient(to right, var(--theme-2-clr-2) 33%, var(--theme-2-clr-3) 33%, var(--theme-2-clr-3) 66%, var(--theme-2-clr-1) 66%);
+}
